@@ -10,6 +10,9 @@ require 'data_mapper'
 require 'omniauth-oauth2'
 require 'omniauth-google-oauth2'
 require 'omniauth-facebook'
+require 'xmlsimple'
+require 'restclient'
+require 'chartkick'
 
 set :environment, :development
 
