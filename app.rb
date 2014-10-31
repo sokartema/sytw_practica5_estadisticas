@@ -67,8 +67,8 @@ get '/' do
   @user = nil
   @webname = nil
   puts "inside get '/': #{params}"
-  @list = ShortenedUrl.all(:order => [ :id.asc ], :email => nil , :nickname => nil).shuffle.slice(0..2)
-  @list2 = ShortenedUrl.all(:order => [ :id.asc ], :email => nil , :nickname => nil, :url => session[:url])
+  @list = Shortenedurl.all(:order => [ :id.asc ], :email => nil , :nickname => nil).shuffle.slice(0..2)
+  @list2 = Shortenedurl.all(:order => [ :id.asc ], :email => nil , :nickname => nil, :url => session[:url])
 
   haml :index
 end
@@ -78,7 +78,7 @@ post '/' do
   uri = URI::parse(params[:url])
   if uri.is_a? URI::HTTP or uri.is_a? URI::HTTPS then
     begin
-      @short_url = ShortenedUrl.first_or_create(:url => params[:url])
+      @short_url = Shortenedurl.first_or_create(:url => params[:url])
       session[:url] = params[:url]
     rescue Exception => e
       puts "EXCEPTION!!!!!!!!!!!!!!!!!!!"
@@ -93,7 +93,7 @@ end
 
 get '/:shortened' do
 
-  short_url = ShortenedUrl.first(:id => params[:shortened].to_i(Base))
+  short_url = Shortenedurl.first(:id => params[:shortened].to_i(Base))
 
   redirect short_url.url, 301
 end
@@ -101,7 +101,7 @@ end
 get '/u/:shortened' do
 
 
-  short_url = ShortenedUrl.first(:opcional => params[:shortened])
+  short_url = Shortenedurl.first(:opcional => params[:shortened])
 
 
   redirect short_url.url, 301
@@ -145,23 +145,23 @@ get '/user/:webname' do
   when "google"
 	  @user = session[:name]
 	  email = session[:email]
-	  @list = ShortenedUrl.all(:order => [ :id.asc ], :email => nil , :nickname => nil).shuffle.slice(0..2)
-	  @list2 = ShortenedUrl.all(:order => [:id.asc], :email => email , :email.not => nil, :limit => 20)
+	  @list = Shortenedurl.all(:order => [ :id.asc ], :email => nil , :nickname => nil).shuffle.slice(0..2)
+	  @list2 = Shortenedurl.all(:order => [:id.asc], :email => email , :email.not => nil, :limit => 20)
 	  haml :google
 
   when "twitter"
 		@user = session[:name]
 	  	nickname = session[:nickname]
-	  	@list = ShortenedUrl.all(:order => [ :id.asc ], :email=>nil, :nickname => nil).shuffle.slice(0..2)
-	  	@list2 = ShortenedUrl.all(:order => [:id.asc], :nickname => nickname , :email=>nil, :nickname.not => nil, :limit => 20)
+	  	@list = Shortenedurl.all(:order => [ :id.asc ], :email=>nil, :nickname => nil).shuffle.slice(0..2)
+	  	@list2 = Shortenedurl.all(:order => [:id.asc], :nickname => nickname , :email=>nil, :nickname.not => nil, :limit => 20)
 
 		haml :twitter
   when "facebook"
 
     @user = session[:name]
     email = session[:email]
-    @list = ShortenedUrl.all(:order => [ :id.asc ], :email => nil, :nickname => nil).shuffle.slice(0..2)
-    @list2 = ShortenedUrl.all(:order => [:id.asc], :email => email , :email.not => nil, :limit => 20)
+    @list = Shortenedurl.all(:order => [ :id.asc ], :email => nil, :nickname => nil).shuffle.slice(0..2)
+    @list2 = Shortenedurl.all(:order => [:id.asc], :email => email , :email.not => nil, :limit => 20)
     haml :facebook
 
   else
@@ -182,7 +182,7 @@ post  '/user/:webname' do
 
   if(params[:opcional] != '') then
 
-  count = ShortenedUrl.count(:opcional.not => nil , :conditions => [ 'opcional = ?', params[:opcional] ])
+  count = Shortenedurl.count(:opcional.not => nil , :conditions => [ 'opcional = ?', params[:opcional] ])
 
   end
 
@@ -196,7 +196,7 @@ post  '/user/:webname' do
       when "google"
 
         begin
-          @short_url = ShortenedUrl.first_or_create(:url => params[:url] , :email => session[:email] , :opcional => params[:opcional])
+          @short_url = Shortenedurl.first_or_create(:url => params[:url] , :email => session[:email] , :opcional => params[:opcional])
         rescue Exception => e
           puts "EXCEPTION!!!!!!!!!!!!!!!!!!!"
           pp @short_url
@@ -208,7 +208,7 @@ post  '/user/:webname' do
       when "twitter"
 
         begin
-          @short_url = ShortenedUrl.first_or_create(:url => params[:url] , :nickname => session[:nickname] , :opcional => params[:opcional])
+          @short_url = Shortenedurl.first_or_create(:url => params[:url] , :nickname => session[:nickname] , :opcional => params[:opcional])
         rescue Exception => e
           puts "EXCEPTION!!!!!!!!!!!!!!!!!!!"
           pp @short_url
@@ -220,7 +220,7 @@ post  '/user/:webname' do
       when "facebook"
 
           begin
-            @short_url = ShortenedUrl.first_or_create(:url => params[:url] , :email => session[:email] , :opcional => params[:opcional])
+            @short_url = Shortenedurl.first_or_create(:url => params[:url] , :email => session[:email] , :opcional => params[:opcional])
           rescue Exception => e
             puts "EXCEPTION!!!!!!!!!!!!!!!!!!!"
             pp @short_url
@@ -267,7 +267,7 @@ delete '/delete/:webname/:url' do
   case (params[:webname])
     when 'google'
       begin
-      @id = ShortenedUrl.first(:email => session[:email], :opcional => params[:url])
+      @id = Shortenedurl.first(:email => session[:email], :opcional => params[:url])
       @id.destroy if !@id.nil?
       rescue Exception => e
         puts "EXCEPTION!!!!!!!!!!!!!!!!!!!"
@@ -277,7 +277,7 @@ delete '/delete/:webname/:url' do
       redirect '/user/google'
     when 'twitter'
       begin
-      @id = ShortenedUrl.first(:nickname => session[:nickname], :opcional => params[:url])
+      @id = Shortenedurl.first(:nickname => session[:nickname], :opcional => params[:url])
       @id.destroy if !@id.nil?
       rescue Exception => e
         puts "EXCEPTION!!!!!!!!!!!!!!!!!!!"
@@ -287,7 +287,7 @@ delete '/delete/:webname/:url' do
       redirect '/user/twitter'
     when 'facebook'
       begin
-      @id = ShortenedUrl.first(:email => session[:email], :opcional => params[:url])
+      @id = Shortenedurl.first(:email => session[:email], :opcional => params[:url])
       @id.destroy if !@id.nil?
       rescue Exception => e
         puts "EXCEPTION!!!!!!!!!!!!!!!!!!!"
@@ -298,7 +298,7 @@ delete '/delete/:webname/:url' do
 
     when 'googleid'
         begin
-        @id = ShortenedUrl.first(:email => session[:email], :id => params[:url].to_i(Base))
+        @id = Shortenedurl.first(:email => session[:email], :id => params[:url].to_i(Base))
         @id.destroy if !@id.nil?
         rescue Exception => e
           puts "EXCEPTION!!!!!!!!!!!!!!!!!!!"
@@ -308,7 +308,7 @@ delete '/delete/:webname/:url' do
         redirect '/user/google'
       when 'twitterid'
         begin
-        @id = ShortenedUrl.first(:nickname => session[:nickname], :id => params[:url].to_i(Base))
+        @id = Shortenedurl.first(:nickname => session[:nickname], :id => params[:url].to_i(Base))
         @id.destroy if !@id.nil?
         rescue Exception => e
           puts "EXCEPTION!!!!!!!!!!!!!!!!!!!"
@@ -318,7 +318,7 @@ delete '/delete/:webname/:url' do
         redirect '/user/twitter'
       when 'facebookid'
         begin
-        @id = ShortenedUrl.first(:email => session[:email], :id => params[:url].to_i(Base))
+        @id = Shortenedurl.first(:email => session[:email], :id => params[:url].to_i(Base))
         @id.destroy if !@id.nil?
         rescue Exception => e
           puts "EXCEPTION!!!!!!!!!!!!!!!!!!!"
