@@ -262,6 +262,18 @@ get '/user/:webname/logout' do
 
 end
 
+#Estadisticas
+get '/stats'
+
+  haml :stats
+
+end
+
+get 'stats/:webname'
+
+end
+
+
 delete '/delete/:webname/:url' do
 
   case (params[:webname])
