@@ -63,6 +63,7 @@ Base = 36
 enable :sessions
 set :session_secret, '*&(^#234a)'
 
+
 get '/' do
   @user = nil
   @webname = nil
@@ -93,17 +94,23 @@ end
 
 get '/:shortened' do
 
-  short_url = Shortenedurl.first(:id => params[:shortened].to_i(Base))
-
+  short_url = Shortenedurl.first(:id => params[:shortened].to_i(Base)) 
+  short_url.n_visits +=1
+  short_url.save
+  
+  visit=Visit.new(:id => short_url.id, :ip =>request.ip ,:created_at => Time.new)
   redirect short_url.url, 301
+  
+  
 end
 
 get '/u/:shortened' do
 
-
   short_url = Shortenedurl.first(:opcional => params[:shortened])
-
-
+  short_url.n_visits +=1
+  short_url.save
+  
+  visit=Visit.new(:id => short_url.id, :ip =>request.ip ,:created_at => Time.new)
   redirect short_url.url, 301
 
 end
@@ -263,13 +270,14 @@ get '/user/:webname/logout' do
 end
 
 #Estadisticas
-get '/stats'
+
+get '/stats' do
 
   haml :stats
-
 end
 
-get 'stats/:webname'
+
+get 'stats/:webname' do
 
 end
 
