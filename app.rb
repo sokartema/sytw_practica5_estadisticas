@@ -14,6 +14,7 @@ require 'xmlsimple'
 require 'restclient'
 require 'chartkick'
 require_relative 'helpers'
+require 'groupdate'
 
 set :environment, :development
 
@@ -104,8 +105,6 @@ get '/:shortened' do
 
   short_url = Shortenedurl.first(:id => params[:shortened].to_i(Base))
 
-  short_url.n_visits += 1
-  short_url.save
 
   ip = getremoteip(env)
   country = getremotecountry(ip)
@@ -131,8 +130,6 @@ get '/u/:shortened' do
 
   short_url = Shortenedurl.first(:opcional => params[:shortened])
 
-  short_url.n_visits +=1
-  short_url.save
 
   ip = getremoteip(env)
   country = getremotecountry(ip)
@@ -312,8 +309,11 @@ end
 
 get '/estadisticas/global' do
 
+  @array = []
 
-  @list = Visit.all(:order => [ :id.asc ])
+
+  visit = Visit.all(:order => [ :id.asc ])
+  visit.each{|visit| @array << ['created_at', visit.created_at]}
 
   haml :globalstats
 

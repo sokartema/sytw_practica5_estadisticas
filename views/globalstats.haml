@@ -1,7 +1,5 @@
 .row
-    .col-md-7.container.jumbotron
-        %h2 Estadisticas
-        %ul
-            -@list.each do |list|
-                %li
-                    #{list.id}
+    %h2 Estadísticas
+    .col-md-12.container.jumbotron
+        %h3 Usuarios diferentes totales
+        = column_chart @array

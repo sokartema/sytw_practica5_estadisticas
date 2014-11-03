@@ -6,8 +6,6 @@ class Shortenedurl
   property :opcional, Text
   property :email, Text
   property :nickname, Text
-  property :n_visits, Integer, :default => 0
-
 
   has n, :visits
 
