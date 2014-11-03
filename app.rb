@@ -310,12 +310,19 @@ end
 
 #Estadisticas
 
-get '/global/stats' do
+get '/estadisticas/global' do
 
 
   @list = Visit.all(:order => [ :id.asc ])
 
-  haml :stats
+  haml :globalstats
+
+end
+
+get '/estadisticas/:u' do
+
+
+
 
 end
 

@@ -17,6 +17,8 @@
                         %li
                             #{url.url}
                             %a{:href=>"/#{url.id.to_s(Base)}"} (#{url.id.to_s(Base)})
+                            %a.text-primary{:href=>"/estadisticas/#{url.id.to_s(Base)}"} (stats)
+
 
 
     .col-md-1
@@ -27,6 +29,8 @@
                 %li
                     #{url.url}
                     %a{:href=>"/#{url.id.to_s(Base)}"} (#{url.id.to_s(Base)})
+                    %a.text-primary{:href=>"/estadisticas/#{url.id.to_s(Base)}"} (stats)
+
         %form{:name=> "input" , :action => "/auth/google_oauth2" , :method=>"post"}
             %button.btn.btn-danger{:id=>"googleboton",:type => "submit"} Sign In With Google+
         %form{:name=> "input" , :action=>"/auth/twitter",:method=>"post"}
