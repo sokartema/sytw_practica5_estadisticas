@@ -98,7 +98,7 @@ get '/:shortened' do
   short_url.n_visits +=1
   short_url.save
   
-  visit=Visit.new(:id => short_url.id, :ip =>request.ip ,:created_at => Time.new)
+  visit=Visit.first_or_create(:id => short_url.id, :ip =>request.ip ,:created_at => Time.new)
   redirect short_url.url, 301
   
   
@@ -110,7 +110,7 @@ get '/u/:shortened' do
   short_url.n_visits +=1
   short_url.save
   
-  visit=Visit.new(:id => short_url.id, :ip =>request.ip ,:created_at => Time.new)
+  visit=Visit.first_or_create(:id => short_url.id, :ip =>request.ip ,:created_at => Time.new)
   redirect short_url.url, 301
 
 end
