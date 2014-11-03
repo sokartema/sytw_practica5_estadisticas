@@ -86,7 +86,6 @@ post '/' do
   if uri.is_a? URI::HTTP or uri.is_a? URI::HTTPS then
     begin
       @short_url = Shortenedurl.first_or_create(:url => params[:url])
-      @visit = Visit.first_or_create()
       session[:url] = params[:url]
     rescue Exception => e
       puts "EXCEPTION!!!!!!!!!!!!!!!!!!!"
@@ -102,8 +101,24 @@ end
 
 get '/:shortened' do
 
+
   short_url = Shortenedurl.first(:id => params[:shortened].to_i(Base))
 
+
+  short_url = Shortenedurl.first(:id => params[:shortened].to_i(Base))
+  short_url.n_visits +=1
+  short_url.save
+
+  begin
+
+  visit=short_url.Visit.first_or_create(:ip =>getremoteip(env) ,:created_at => Time.new)
+
+  rescue Exception => e
+
+    puts e
+
+  end
+  
   redirect short_url.url, 301
 
 
@@ -112,6 +127,19 @@ end
 get '/u/:shortened' do
 
   short_url = Shortenedurl.first(:opcional => params[:shortened])
+
+  short_url.n_visits +=1
+  short_url.save
+
+  begin
+
+  visit=short_url.Visit.first_or_create(:ip =>getremoteip(env) ,:created_at => Time.new)
+
+  rescue Exception => e
+
+    puts e
+
+  end
 
   redirect short_url.url, 301
 
