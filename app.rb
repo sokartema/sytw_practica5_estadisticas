@@ -107,17 +107,15 @@ get '/:shortened' do
   short_url.n_visits += 1
   short_url.save
 
-
   ip = getremoteip(env)
-
-  puts ip
   country = getremotecountry(ip)
-  puts country
+  time = Time.now
 
   begin
 
-  visit = short_url.visits.create
+  visit = Visit.new(:created_at => time, :ip => ip, :country => country, :shortenedurl => short_url)
   visit.save
+
   rescue Exception => e
 
     puts e
@@ -137,13 +135,12 @@ get '/u/:shortened' do
   short_url.save
 
   ip = getremoteip(env)
-  puts ip
   country = getremotecountry(ip)
-  puts country
+  time = Time.now
 
   begin
 
-  visit = short_url.visits.create
+  visit = Visit.new(:created_at => time, :ip => ip, :country => country, :shortenedurl => short_url)
   visit.save
 
 
