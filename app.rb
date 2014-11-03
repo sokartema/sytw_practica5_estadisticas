@@ -13,10 +13,13 @@ require 'omniauth-facebook'
 require 'xmlsimple'
 require 'restclient'
 require 'chartkick'
+require_relative 'helpers'
 
 set :environment, :development
 
 set :protection , :except => :session_hijacking
+
+helpers AppHelpers
 
 use OmniAuth::Builder do
   config = YAML.load_file 'config/config.yml'
@@ -65,6 +68,7 @@ set :session_secret, '*&(^#234a)'
 
 
 get '/' do
+
   @user = nil
   @webname = nil
   puts "inside get '/': #{params}"
@@ -75,11 +79,14 @@ get '/' do
 end
 
 post '/' do
+
+
   puts "inside post '/': #{params}"
   uri = URI::parse(params[:url])
   if uri.is_a? URI::HTTP or uri.is_a? URI::HTTPS then
     begin
       @short_url = Shortenedurl.first_or_create(:url => params[:url])
+      @visit = Visit.first_or_create()
       session[:url] = params[:url]
     rescue Exception => e
       puts "EXCEPTION!!!!!!!!!!!!!!!!!!!"
@@ -89,28 +96,23 @@ post '/' do
   else
     logger.info "Error! <#{params[:url]}> is not a valid URL"
   end
+
   redirect '/'
 end
 
 get '/:shortened' do
 
-  short_url = Shortenedurl.first(:id => params[:shortened].to_i(Base)) 
-  short_url.n_visits +=1
-  short_url.save
-  
-  visit=Visit.new(:id => short_url.id, :ip =>request.ip ,:created_at => Time.new)
+  short_url = Shortenedurl.first(:id => params[:shortened].to_i(Base))
+
   redirect short_url.url, 301
-  
-  
+
+
 end
 
 get '/u/:shortened' do
 
   short_url = Shortenedurl.first(:opcional => params[:shortened])
-  short_url.n_visits +=1
-  short_url.save
-  
-  visit=Visit.new(:id => short_url.id, :ip =>request.ip ,:created_at => Time.new)
+
   redirect short_url.url, 301
 
 end
@@ -271,15 +273,15 @@ end
 
 #Estadisticas
 
-get '/stats' do
+get '/global/stats' do
+
+
+  @list = Visit.all(:order => [ :id.asc ])
 
   haml :stats
-end
-
-
-get 'stats/:webname' do
 
 end
+
 
 
 delete '/delete/:webname/:url' do
@@ -350,6 +352,7 @@ delete '/delete/:webname/:url' do
 
       redirect '/'
   end
+
 
 end
 

@@ -7,9 +7,9 @@ class Shortenedurl
   property :email, Text
   property :nickname, Text
   property :n_visits, Integer
-  
-  self.n_visits=0
+
   has n, :visits
+
 end
 
 class Visit
@@ -22,15 +22,18 @@ class Visit
 
   belongs_to  :shortenedurl
 
-  after :create, :set_country
-  
+  after :create, :build
 
-  def set_country
-    xml = RestClient.get "http://api.hostip.info/get_xml.php?ip=#{ip}"
-    self.country = XmlSimple.xml_in(xml.to_s)
+
+  def build
+    #ip = getremoteip(env)
+    #self.ip = ip
+    #xml = RestClient.get "http://api.hostip.info/get_xml.php?ip=#{ip}"
+    #self.country = XmlSimple.xml_in(xml.to_s)
+    #self.created_at = Time.now
+    puts "Dentro build"
+    self.country = "Spain"
     self.save
   end
-  
-  def set_ip
-  end
+
 end
