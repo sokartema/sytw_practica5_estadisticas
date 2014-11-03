@@ -17,4 +17,16 @@ module AppHelpers
 
   end
 
+  def getremotecountry(ip)
+
+    xml = RestClient.get "http://ip-api.com/xml/#{ip}"
+    country = XmlSimple.xml_in(xml.to_s)
+    begin
+    country['country'][0]
+    rescue
+    false  
+    end
+
+  end
+
 end

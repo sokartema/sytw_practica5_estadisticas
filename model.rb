@@ -20,6 +20,18 @@ class Visit
   property  :ip,          IPAddress
   property  :country,     String
 
+  after :create, :init
+
+  def init
+
+    puts "Inside init"
+
+    self.created_at = Time.now
+
+    self.save
+
+  end
+
 
   belongs_to  :shortenedurl
 

@@ -104,21 +104,26 @@ get '/:shortened' do
 
   short_url = Shortenedurl.first(:id => params[:shortened].to_i(Base))
 
-
-  short_url = Shortenedurl.first(:id => params[:shortened].to_i(Base))
-  short_url.n_visits +=1
+  short_url.n_visits += 1
   short_url.save
+
+
+  ip = getremoteip(env)
+
+  puts ip
+  country = getremotecountry(ip)
+  puts country
 
   begin
 
-  visit=short_url.Visit.first_or_create(:ip =>getremoteip(env) ,:created_at => Time.new)
-
+  visit = short_url.visits.create
+  visit.save
   rescue Exception => e
 
     puts e
 
   end
-  
+
   redirect short_url.url, 301
 
 
@@ -131,9 +136,16 @@ get '/u/:shortened' do
   short_url.n_visits +=1
   short_url.save
 
+  ip = getremoteip(env)
+  puts ip
+  country = getremotecountry(ip)
+  puts country
+
   begin
 
-  visit=short_url.Visit.first_or_create(:ip =>getremoteip(env) ,:created_at => Time.new)
+  visit = short_url.visits.create
+  visit.save
+
 
   rescue Exception => e
 
