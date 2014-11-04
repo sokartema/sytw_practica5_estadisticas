@@ -1,5 +1,8 @@
 .row
     %h2 Estadísticas
     .col-md-12.container.jumbotron
-        %h3 Usuarios diferentes totales
-        = column_chart @array
+        %h3 Usuarios diferentes por pais PieChart
+        = pie_chart @hash
+    .col-md-12.container.jumbotron
+        %h3 Usuarios diferentes por pais Geochart
+        = geo_chart @hash

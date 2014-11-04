@@ -309,11 +309,17 @@ end
 
 get '/estadisticas/global' do
 
-  @array = []
+  @hash = Hash.new
 
 
-  visit = Visit.all(:order => [ :id.asc ])
-  visit.each{|visit| @array << ['created_at', visit.created_at]}
+  visit = Visit.all()
+  visit.each{|visit|
+    if(@hash[visit.country].nil?)
+      @hash[visit.country] = 1
+    else
+      @hash[visit.country] += 1
+    end
+                      }
 
   haml :globalstats
 
