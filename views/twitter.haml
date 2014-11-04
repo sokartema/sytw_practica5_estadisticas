@@ -30,7 +30,7 @@
 
                     -else
                         %a{:href=>"/#{url.id.to_s(Base)}"} (#{url.opcional})
-                        %a.text-primary{:href=>"/estadisticas/#{url.opcional}"} (stats)
+                        %a.text-primary{:href=>"/estadisticas/#{url.id.to_s(Base)}"} (stats)
 
                         %form{:name=> "input" , :action=>"/delete/twitter/#{url.opcional}",:method=>"post"}
                             %button.btn.btn-danger{:type => "submit",:name=>"_method" , :value=>"delete"} Borrar

@@ -309,15 +309,21 @@ end
 
 get '/estadisticas/global' do
 
-  @hash = Hash.new
+  @hashcountry = Hash.new
+  @hashdate = Hash.new
 
 
   visit = Visit.all()
   visit.each{|visit|
-    if(@hash[visit.country].nil?)
-      @hash[visit.country] = 1
+    if(@hashcountry[visit.country].nil?)
+      @hashcountry[visit.country] = 1
     else
-      @hash[visit.country] += 1
+      @hashcountry[visit.country] += 1
+    end
+    if(@hashdate["#{visit.created_at.day} - #{visit.created_at.month} - #{visit.created_at.year}"].nil?)
+        @hashdate["#{visit.created_at.day} - #{visit.created_at.month} - #{visit.created_at.year}"] = 1
+      else
+        @hashdate["#{visit.created_at.day} - #{visit.created_at.month} - #{visit.created_at.year}"] += 1
     end
                       }
 
@@ -327,8 +333,30 @@ end
 
 get '/estadisticas/:u' do
 
+  @hashcountry = Hash.new
+  @hashdate = Hash.new
 
+  short_url = Shortenedurl.first(:id => params[:u].to_i(Base))
 
+  @url = short_url
+
+  visit = Visit.all(:shortenedurl => short_url)
+
+  visit.each{|visit|
+    if(@hashcountry[visit.country].nil?)
+      @hashcountry[visit.country] = 1
+    else
+      @hashcountry[visit.country] += 1
+    end
+    if(@hashdate["#{visit.created_at.day} - #{visit.created_at.month} - #{visit.created_at.year}"].nil?)
+        @hashdate["#{visit.created_at.day} - #{visit.created_at.month} - #{visit.created_at.year}"] = 1
+      else
+        @hashdate["#{visit.created_at.day} - #{visit.created_at.month} - #{visit.created_at.year}"] += 1
+    end
+
+  }
+
+  haml :stats
 
 end
 
