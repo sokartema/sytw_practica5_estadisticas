@@ -108,11 +108,12 @@ get '/:shortened' do
 
   ip = getremoteip(env)
   country = getremotecountry(ip)
+  city= getremotecity(ip)
   time = Time.now
 
   begin
 
-  visit = Visit.new(:created_at => time, :ip => ip, :country => country, :shortenedurl => short_url)
+  visit = Visit.new(:created_at => time, :ip => ip, :city =>city, :country => country, :shortenedurl => short_url)
   visit.save
 
   rescue Exception => e
@@ -133,11 +134,12 @@ get '/u/:shortened' do
 
   ip = getremoteip(env)
   country = getremotecountry(ip)
+  city= getremotecity(ip)
   time = Time.now
 
   begin
 
-  visit = Visit.new(:created_at => time, :ip => ip, :country => country, :shortenedurl => short_url)
+  visit = Visit.new(:created_at => time, :ip => ip, :city =>city, :country => country, :shortenedurl => short_url)
   visit.save
 
 
@@ -311,6 +313,7 @@ get '/estadisticas/global' do
 
   @hashcountry = Hash.new
   @hashdate = Hash.new
+  @hashcity = Hash.new
 
 
   visit = Visit.all()
@@ -320,6 +323,13 @@ get '/estadisticas/global' do
     else
       @hashcountry[visit.country] += 1
     end
+            
+    if(@hashcity[visit.city].nil?)
+      @hashcity[visit.city] = 1
+    else
+      @hashcity[visit.city] += 1
+    end
+            
     if(@hashdate["#{visit.created_at.day} - #{visit.created_at.month} - #{visit.created_at.year}"].nil?)
         @hashdate["#{visit.created_at.day} - #{visit.created_at.month} - #{visit.created_at.year}"] = 1
       else
@@ -335,6 +345,7 @@ get '/estadisticas/:u' do
 
   @hashcountry = Hash.new
   @hashdate = Hash.new
+  @hashcity = Hash.new
 
   short_url = Shortenedurl.first(:id => params[:u].to_i(Base))
 
@@ -348,6 +359,12 @@ get '/estadisticas/:u' do
     else
       @hashcountry[visit.country] += 1
     end
+     if(@hashcity[visit.city].nil?)
+      @hashcity[visit.city] = 1
+    else
+      @hashcity[visit.city] += 1
+    end
+            
     if(@hashdate["#{visit.created_at.day} - #{visit.created_at.month} - #{visit.created_at.year}"].nil?)
         @hashdate["#{visit.created_at.day} - #{visit.created_at.month} - #{visit.created_at.year}"] = 1
       else

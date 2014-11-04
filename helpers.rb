@@ -28,5 +28,15 @@ module AppHelpers
     end
 
   end
+  
+  def getremotecity(ip)
+    xml = RestClient.get "http://ip-api.com/xml/#{ip}"
+    country = XmlSimple.xml_in(xml.to_s)
+    begin
+      country['city'][0]
+    rescue
+      "Desconocido"
+    end
+  end
 
 end

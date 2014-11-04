@@ -19,6 +19,7 @@ class Visit
   property  :created_at,  Time
   property  :ip,          IPAddress
   property  :country,     String
+  property  :city, 	String
 
   belongs_to  :shortenedurl
 
