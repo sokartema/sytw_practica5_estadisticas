@@ -22,18 +22,26 @@ module AppHelpers
     xml = RestClient.get "http://ip-api.com/xml/#{ip}"
     country = XmlSimple.xml_in(xml.to_s)
     begin
-    country['country'][0]
+    if (country['country'][0] == {})
+      "Desconocido"
+    else
+      country['country'][0]
+    end
     rescue
     "Desconocido"
     end
 
   end
-  
+
   def getremotecity(ip)
     xml = RestClient.get "http://ip-api.com/xml/#{ip}"
-    country = XmlSimple.xml_in(xml.to_s)
+    city = XmlSimple.xml_in(xml.to_s)
     begin
-      country['city'][0]
+      if (city['city'][0] == {})
+        "Desconocido"
+      else
+        city['city'][0]
+      end
     rescue
       "Desconocido"
     end
