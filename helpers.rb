@@ -22,7 +22,7 @@ module AppHelpers
     xml = RestClient.get "http://ip-api.com/xml/#{ip}"
     country = XmlSimple.xml_in(xml.to_s)
     begin
-    if (country['country'][0] == {})
+    if (country['country'][0].empty?)
       "Desconocido"
     else
       country['country'][0]
@@ -37,7 +37,7 @@ module AppHelpers
     xml = RestClient.get "http://ip-api.com/xml/#{ip}"
     city = XmlSimple.xml_in(xml.to_s)
     begin
-      if (city['city'][0] == {})
+      if (city['city'][0].empty?)
         "Desconocido"
       else
         city['city'][0]
