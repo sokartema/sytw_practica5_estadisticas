@@ -16,7 +16,7 @@ require 'chartkick'
 require_relative 'helpers'
 
 
-set :environment, :development
+set :environment, :production
 
 set :protection , :except => :session_hijacking
 
