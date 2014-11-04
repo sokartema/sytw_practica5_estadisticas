@@ -1,18 +1,17 @@
 .row
-    %h2 Estadísticas globales
+    %h2 Estadísticas globales - Visitas Totales #{@count}
     .col-md-12.container.jumbotron
-        %h3 Usuarios totales cada dia
+        %h3 Usuarios totales cada dia ColumnChart.
         = column_chart @hashdate
     .col-md-12.container.jumbotron
-        %h3 Timeline       
-        = area_chart @hashdate
+        %h3 Usuarios totales cada dia AreaChart.
+        = area_chart @hashdate , :discrete => true
     .col-md-12.container.jumbotron
-        %h3 Usuarios diferentes por pais PieChart
+        %h3 Usuarios diferentes por pais PieChart.
         = pie_chart @hashcountry
     .col-md-12.container.jumbotron
-        %h3 Usuarios diferentes por pais Geochart
+        %h3 Usuarios diferentes por pais Geochart.
         = geo_chart @hashcountry
     .col-md-12.container.jumbotron
-        %h3 Ciudad       
+        %h3 Usuarios diferentes por ciudad.
         = pie_chart @hashcity
-     

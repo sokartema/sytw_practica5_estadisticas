@@ -1,14 +1,19 @@
-# URL shortener [![Build Status](https://travis-ci.org/alu0100595727/sytw_practica4_urlshortener.svg?branch=master)](https://travis-ci.org/alu0100595727/sytw_practica4_urlshortener)
+# URL shortener [![Build Status](https://travis-ci.org/alu0100595727/sytw_practica5_estadisticas.svg?branch=master)](https://travis-ci.org/alu0100595727/sytw_practica5_estadisticas)
 
 ![logo](http://i1377.photobucket.com/albums/ah55/Jazer_Abreu/logo_zps1d404711.png)
 
-Aplicacion para la creacion de links acortados de paginas webs y su almacenamiento. El logueo se podra realizar mediante la autentificacion de Facebook, Google o Twitter, ademas de permitir el uso anonimo de la misma.
+Aplicación para la creación de links acortados de paginas webs y su almacenamiento. El logueo se podrá realizar mediante la autentificacián de Facebook, Google o Twitter, ademas de permitir el uso anonimo de la misma.
 
 El usuario logueado almacenara sus links, y ademas tendra la posibilidad de añadir el nombre de la url, ademas de borrarlos de su lista si lo cree necesario. Para ir a un link en concreto, seleccionelo en la lista o pon en la url /u/ y el opcional del link.
 
 Este proyecto ha sido implementado para el despliegue en heroku y contiene tests con seguimiento en travis.
 
-Proyecto en Heroku: [LINK!](http://urlsytw.herokuapp.com)
+Proyecto en Heroku: [LINK!](http://statssytw.herokuapp.com)
+
+### Estadísticas
+
+- Añadidas estadísticas para la pagina global.
+- Añadidas estadísticas para cada link en particular.
 
 ### Status
 Tecnologias usadas:

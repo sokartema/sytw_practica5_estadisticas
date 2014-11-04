@@ -17,7 +17,7 @@ gem "selenium-webdriver"
 gem "rest-client"
 gem "xml-simple"
 gem "chartkick"
-gem "groupdate"
+
 
 group :production do
 

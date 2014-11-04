@@ -14,7 +14,7 @@ require 'xmlsimple'
 require 'restclient'
 require 'chartkick'
 require_relative 'helpers'
-require 'groupdate'
+
 
 set :environment, :development
 
@@ -318,18 +318,20 @@ get '/estadisticas/global' do
 
   visit = Visit.all()
   visit.each{|visit|
+  @count = Visit.count()
+
     if(@hashcountry[visit.country].nil?)
       @hashcountry[visit.country] = 1
     else
       @hashcountry[visit.country] += 1
     end
-            
+
     if(@hashcity[visit.city].nil?)
       @hashcity[visit.city] = 1
     else
       @hashcity[visit.city] += 1
     end
-            
+
     if(@hashdate["#{visit.created_at.day} - #{visit.created_at.month} - #{visit.created_at.year}"].nil?)
         @hashdate["#{visit.created_at.day} - #{visit.created_at.month} - #{visit.created_at.year}"] = 1
       else
@@ -353,6 +355,8 @@ get '/estadisticas/:u' do
 
   visit = Visit.all(:shortenedurl => short_url)
 
+  @count = Visit.count(:shortenedurl => short_url)
+
   visit.each{|visit|
     if(@hashcountry[visit.country].nil?)
       @hashcountry[visit.country] = 1
@@ -364,7 +368,7 @@ get '/estadisticas/:u' do
     else
       @hashcity[visit.city] += 1
     end
-            
+
     if(@hashdate["#{visit.created_at.day} - #{visit.created_at.month} - #{visit.created_at.year}"].nil?)
         @hashdate["#{visit.created_at.day} - #{visit.created_at.month} - #{visit.created_at.year}"] = 1
       else
