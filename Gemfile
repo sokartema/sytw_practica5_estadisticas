@@ -4,6 +4,7 @@ source 'https://rubygems.org'
 gem 'thin'
 gem 'data_mapper'
 gem 'sinatra-contrib'
+gem 'sinatra-flash'
 gem 'haml'
 gem 'omniauth-twitter'
 gem 'omniauth'
@@ -13,7 +14,7 @@ gem "rake"
 gem "minitest"
 gem "test-unit"
 gem "rack-test"
-gem "selenium-webdriver"
+gem 'selenium-webdriver','2.43.0'
 gem "rest-client"
 gem "xml-simple"
 gem "chartkick"
@@ -30,5 +31,6 @@ group :development do
 
   gem 'dm-sqlite-adapter'
   gem 'sqlite3'
+  gem 'selenium-webdriver','2.43.0'
 
 end
