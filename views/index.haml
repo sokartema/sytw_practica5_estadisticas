@@ -1,7 +1,7 @@
 .row
     .col-md-5.container
 
-        %h1 Bienvenido Anónimo
+        %h1 Bienvenido, Anónimo
 
 
 .row
@@ -17,7 +17,7 @@
                         %li
                             #{url.url}
                             %a{:href=>"/#{url.id.to_s(Base)}"} (#{url.id.to_s(Base)})
-                            %a.text-primary{:href=>"/estadisticas/#{url.id.to_s(Base)}"} 
+                            %a.text-primary{:href=>"/estadisticas/#{url.id.to_s(Base)}"}
                                 %img{:src=>"icons/stats.png"}
 
 
@@ -30,7 +30,7 @@
                 %li
                     #{url.url}
                     %a{:href=>"/#{url.id.to_s(Base)}"} (#{url.id.to_s(Base)})
-                    %a.text-primary{:href=>"/estadisticas/#{url.id.to_s(Base)}"} 
+                    %a.text-primary{:href=>"/estadisticas/#{url.id.to_s(Base)}"}
                         %img{:src=>"icons/stats.png"}
 
         %form{:name=> "input" , :action => "/auth/google_oauth2" , :method=>"post"}
