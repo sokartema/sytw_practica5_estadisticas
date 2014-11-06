@@ -31,7 +31,7 @@ describe "Test de la paginas de login" do
 		browser = Selenium::WebDriver.for :firefox
 		browser.get('localhost:9292')
 		browser.manage.timeouts.implicit_wait=3
-		element=browser.find_element :id => "googleboton"
+		element=browser.find_element :id => "google-button"
 		element.click
 		browser.manage.timeouts.implicit_wait=3
 
@@ -52,7 +52,7 @@ describe "Test de la paginas de login" do
 		browser = Selenium::WebDriver.for :firefox
 		browser.get('localhost:9292')
 		browser.manage.timeouts.implicit_wait=3
-		element=browser.find_element :id => "twitterboton"
+		element=browser.find_element :id => "twitter-button"
 		element.click
 		browser.manage.timeouts.implicit_wait=3
 
@@ -71,7 +71,7 @@ describe "Test de la paginas de login" do
 		browser = Selenium::WebDriver.for :firefox
 		browser.get('localhost:9292')
 		browser.manage.timeouts.implicit_wait=3
-		element=browser.find_element :id => "facebookboton"
+		element=browser.find_element :id => "facebook-button"
 		element.click
 		browser.manage.timeouts.implicit_wait=3
 		body_element = browser.find_element(:tag_name => "body")

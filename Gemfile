@@ -4,6 +4,7 @@ source 'https://rubygems.org'
 gem 'thin'
 gem 'data_mapper'
 gem 'sinatra-contrib'
+gem 'sinatra-flash'
 gem 'haml'
 gem 'omniauth-twitter'
 gem 'omniauth'
@@ -13,7 +14,7 @@ gem "rake"
 gem "minitest"
 gem "test-unit"
 gem "rack-test"
-gem "selenium-webdriver"
+gem 'selenium-webdriver'
 gem "rest-client"
 gem "xml-simple"
 gem "chartkick"

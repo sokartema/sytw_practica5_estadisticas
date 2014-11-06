@@ -1,7 +1,7 @@
 .row
     .col-md-5.container
 
-        %h1 Bienvenido #{@user}
+        %h1 Bienvenido, #{@user}
         -if(@error)
             %h4.text-danger Ya hay un opcional con el mismo nombre
 
@@ -23,12 +23,14 @@
                     #{url.url}
                     -if (url.opcional == '')
                         %a{:href=>"/#{url.id.to_s(Base)}"} (#{url.id.to_s(Base)})
-                        %a.text-primary{:href=>"/estadisticas/#{url.id.to_s(Base)}"} stats
+                        %a.text-primary{:href=>"/estadisticas/#{url.id.to_s(Base)}"}
+                            %img{:src=>"../icons/stats.png"}
                         %form{:name=> "input" , :action=>"/delete/facebookid/#{url.id.to_s(Base)}",:method=>"post"}
                             %button.btn.btn-danger{:type => "submit",:name=>"_method" , :value=>"delete"} Borrar
                     -else
                         %a{:href=>"/#{url.id.to_s(Base)}"} (#{url.opcional})
-                        %a.text-primary{:href=>"/estadisticas/#{url.id.to_s(Base)}"} (stats)
+                        %a.text-primary{:href=>"/estadisticas/#{url.id.to_s(Base)}"}
+                            %img{:src=>"../icons/stats.png"}
                         %form{:name=> "input" , :action=>"/delete/facebook/#{url.opcional}",:method=>"post"}
 
 
@@ -38,7 +40,8 @@
                 %li
                     #{url.url}
                     %a{:href=>"/#{url.id.to_s(Base)}"} (#{url.id.to_s(Base)})
-                    %a.text-primary{:href=>"/estadisticas/#{url.id.to_s(Base)}"} (stats)
+                    %a.text-primary{:href=>"/estadisticas/#{url.id.to_s(Base)}"}
+                        %img{:src=>"../icons/stats.png"}
 
         %form{:name=> "input" , :action => "/auth/google_oauth2" , :method=>"post"}
             %button.btn.btn-danger{:type => "submit"} Sign In With Google+

@@ -47,7 +47,7 @@ describe "Tests de la pagina raiz principal ('/') con metodo get" do
 	it "Comprueba la carga del logo en el public del servidor" do
 		path = File.absolute_path(__FILE__)
 		path=path+@imagen
-		path=path.split('/test/test.rb')
+		path=path.split('/test/test_u.rb')
 		path=path[0]+path[1]
 
 		assert File.exists?(path), "Debe estar la imagen en public"
@@ -58,7 +58,7 @@ describe "Tests de la pagina raiz principal ('/') con metodo get" do
 
 		path = File.absolute_path(__FILE__)
 		path=path+@css
-		path=path.split('/test/test.rb')
+		path=path.split('/test/test_u.rb')
 		path=path[0]+path[1]
 
 		assert File.exists?(path), "Debe estar el CSS en el servidor"

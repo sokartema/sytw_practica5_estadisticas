@@ -160,16 +160,21 @@ get '/auth/:name/callback' do
 	  @auth = request.env['omniauth.auth']
 	  session[:name] = @auth['info'].name
 	  session[:email] = @auth['info'].email
+    session[:image] = @auth['info'].image
 	  redirect "/user/google"
   when 'twitter'
 	  @auth = request.env['omniauth.auth']
+    puts @auth['info']
 	  session[:name] = @auth['info'].name
 	  session[:nickname] = @auth['info'].nickname
+    session[:image] = @auth['info'].image
       redirect "/user/twitter"
   when 'facebook'
     @auth = request.env['omniauth.auth']
+    puts @auth['info']
     session[:name] = @auth['info'].name
     session[:email] = @auth['info'].email
+    session[:image] = @auth['info'].image
     redirect "/user/facebook"
   else
   redirect "/"
@@ -190,6 +195,7 @@ get '/user/:webname' do
   when "google"
 	  @user = session[:name]
 	  email = session[:email]
+    @image = session[:image]
 	  @list = Shortenedurl.all(:order => [ :id.asc ], :email => nil , :nickname => nil).shuffle.slice(0..2)
 	  @list2 = Shortenedurl.all(:order => [:id.asc], :email => email , :email.not => nil, :limit => 20)
 	  haml :google
@@ -197,6 +203,7 @@ get '/user/:webname' do
   when "twitter"
 		@user = session[:name]
 	  	nickname = session[:nickname]
+      @image = session[:image]
 	  	@list = Shortenedurl.all(:order => [ :id.asc ], :email=>nil, :nickname => nil).shuffle.slice(0..2)
 	  	@list2 = Shortenedurl.all(:order => [:id.asc], :nickname => nickname , :email=>nil, :nickname.not => nil, :limit => 20)
 
@@ -205,6 +212,7 @@ get '/user/:webname' do
 
     @user = session[:name]
     email = session[:email]
+    @image = session[:image]
     @list = Shortenedurl.all(:order => [ :id.asc ], :email => nil, :nickname => nil).shuffle.slice(0..2)
     @list2 = Shortenedurl.all(:order => [:id.asc], :email => email , :email.not => nil, :limit => 20)
     haml :facebook

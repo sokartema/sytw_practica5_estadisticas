@@ -19,6 +19,8 @@
                 -when "facebook"
                     %a.navbar-brand{:href => "/user/facebook"} Practica URL Shortener
             %a.navbar-brand.pull-right{:href => "/estadisticas/global"} Estadísticas
+            -if(@image)
+                <img class= "img-rounded pull-right" src="#{@image}" alt"Imagen Usuario" height = "45px" width = "45px"></img>
 
 
         .container

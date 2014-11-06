@@ -1,6 +1,7 @@
-desc "run test"
+desc "run all test"
 task :default => :test
-desc "run test"
+
+desc "run all test"
 task :test do
   sh "ruby test/test.rb"
 end
@@ -8,6 +9,11 @@ end
 desc "run selenium login test"
 task :selenium do
   sh "ruby test/test_s.rb"
+end
+
+desc "run unit test"
+task :testunit do
+  sh "ruby test/test_u.rb"
 end
 
 desc "run the http server"
