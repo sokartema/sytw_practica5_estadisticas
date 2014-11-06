@@ -14,7 +14,7 @@ gem "rake"
 gem "minitest"
 gem "test-unit"
 gem "rack-test"
-gem 'selenium-webdriver','2.43.0'
+gem 'selenium-webdriver'
 gem "rest-client"
 gem "xml-simple"
 gem "chartkick"
@@ -31,6 +31,6 @@ group :development do
 
   gem 'dm-sqlite-adapter'
   gem 'sqlite3'
-  gem 'selenium-webdriver','2.43.0'
+  gem 'selenium-webdriver'
 
 end

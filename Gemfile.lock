@@ -168,7 +168,7 @@ DEPENDENCIES
   rack-test
   rake
   rest-client
-  selenium-webdriver (= 2.43.0)
+  selenium-webdriver
   sinatra-contrib
   sinatra-flash
   sqlite3
