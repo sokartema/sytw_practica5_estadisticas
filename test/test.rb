@@ -99,7 +99,7 @@ describe "Test de la paginas paginas de login" do
 		
 	end
 	
-describe "Test par ala pagina de estadistica" do
+describe "Test para la pagina de estadistica" do
 	before :all do
 		@pagina='Estadisticas Globales'
 		@contenido='Estadísticas globales'
@@ -111,11 +111,29 @@ describe "Test par ala pagina de estadistica" do
 		assert last_response.ok?	
 	end
 	
-	it "Carga de la pagina #{@pagina} en el servidor" do
+	it "Comprueba el contenido en la web" do
 		get '/estadisticas/global'
 		assert last_response.body.include?(@contenido), "El contenido esta en la web"	
 	end
 	
+end
+
+describe "Test para datamapper" do
+	before :all do
+		@pagina='Estadisticas Globales'
+		@contenido='Estadísticas globales'
+		
+	      
+	end
+	it "Crea nuevo link" do
+		prueba=Shortenedurl.new(:url => "http://www.prueba.com")
+		assert (prueba.save)
+	end
+	
+	it "Borra el link" do
+		prueba=Shortenedurl.first(:url => "http://www.prueba.com")
+		assert(prueba.destroy)
+	end
 end
 
 end
