@@ -31,6 +31,5 @@ group :development do
 
   gem 'dm-sqlite-adapter'
   gem 'sqlite3'
-  gem 'selenium-webdriver'
 
 end
